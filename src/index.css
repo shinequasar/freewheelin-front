@@ -5,3 +5,11 @@
 * {
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 }
+
+body {
+  min-width: 1024px;
+}
+
+#root {
+  min-width: 1024px;
+}
