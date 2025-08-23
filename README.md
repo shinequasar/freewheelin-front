@@ -26,3 +26,16 @@ pnpm install
 ```bash
 pnpm dev
 ```
+
+### 3. 개발 서버 빌드
+
+```bash
+pnpm build
+```
+
+### 4. 컬러토큰, 반응형 기준
+
+프로젝트 내에 사용한 반응형 breakpoint와 컬러 토큰은 `tailwind.config.js`에 정의되어 있습니다.
+
+- **태블릿**: 1024px 이상 (`tablet:` 접두사)
+- **PC**: 1280px 이상 (`desktop:` 접두사)
