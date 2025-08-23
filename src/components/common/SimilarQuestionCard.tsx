@@ -26,15 +26,14 @@ const SimilarQuestionCard = ({
 
   return (
     <div className="pb-[16px]">
-      {/* 헤더 영역 */}
       <div
         data-area="header"
-        className="flex items-start justify-between rounded-t-[12px] bg-cardColor-header px-[16px] pb-[15px] pt-[16px]"
+        className="flex h-[44px] items-center justify-between rounded-t-[12px] bg-cardColor-header px-[16px]"
       >
         <div data-area="content" className="flex items-center">
           <span
             data-area="number"
-            className="ml-[12px] mr-[32px] mt-[4px] text-[20px] font-bold text-textColor-title"
+            className="ml-[12px] mr-[32px] text-[20px] font-bold text-textColor-title"
           >
             {number}
           </span>
@@ -44,13 +43,12 @@ const SimilarQuestionCard = ({
                 {title.length > 25 ? `${title.slice(0, 25)}...` : title}
               </span>
               <span className="hidden tablet:block">
-                {title.length > 30 ? `${title.slice(0, 30)}...` : title}
+                {title.length > 24 ? `${title.slice(0, 24)}...` : title}
               </span>
             </h3>
           </div>
         </div>
 
-        {/* 액션 버튼 */}
         <div data-area="actions" className="flex items-center gap-3">
           <button
             data-area="btn-add"
@@ -69,7 +67,6 @@ const SimilarQuestionCard = ({
         </div>
       </div>
 
-      {/* 콘텐츠 영역 */}
       <div
         data-area="content-area"
         className="relative flex min-h-32 items-center justify-center rounded-b-[12px] bg-cardColor-body p-4"

@@ -30,7 +30,9 @@ const QuestionList = ({ problems }: { problems: Problem[] }) => {
             </div>
           </div>
         ) : (
-          <div className="space-y-0">
+          <div className="space-y-[16px]">
+            {' '}
+            {/* 정확히 8px 간격 */}
             {problems.map((problem, index) => (
               <QuestionCard
                 key={problem.id}
