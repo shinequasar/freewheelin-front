@@ -1,10 +1,13 @@
+import { Route, Routes } from 'react-router-dom'
+import CreateWorksheetPage from './pages/CreateWorksheetPage'
+import ErrorPage from './pages/ErrorPage'
+
 function App() {
   return (
-    <>
-      <div>
-        <h1 className="text-center text-4xl font-bold text-[#482]">Hello World</h1>
-      </div>
-    </>
+    <Routes>
+      <Route path="/" element={<CreateWorksheetPage />} />
+      <Route path="*" element={<ErrorPage />} errorElement={<ErrorPage />} />
+    </Routes>
   )
 }
 
