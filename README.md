@@ -72,6 +72,6 @@ pnpm test
 - **책임 분리 및 재사용**: 공통 컴포넌트와 훅 모듈화
 - **`interface` vs `type`**: 객체 구조는 `interface`, 유니온/리터럴 타입은 `type` 을 사용하였습니다.
 - **QuestionCard.tsx** - React.memo + useCallback 적용 -> 카드 컴포넌트 레벨 메모이제이션으로 문제 목록에서 개별 문제 변경 시 다른 카드들의 불필요한 리렌더링을 방지하였습니다.
-- **useSimilarProblems.ts** - React.memo 적용 -> worksheetProblems가 변경될 때마다 excludedProblemIds 배열을 새로 생성하는 것 방지 -> 불필요한 API 호출을 방지하였습니다.
+- **useSimilarProblems.ts** - useMemo 적용 -> worksheetProblems가 변경될 때마다 excludedProblemIds 배열을 새로 생성하는 것 방지 -> 불필요한 API 호출을 방지하였습니다.
 - **추후 지연 로딩(Lazy Loading) 도입고려**: 문항 이미지 및 메타데이터의 lazy 로딩 구현을 고려해볼 수 있을 것 같습니다.
 - **추후 Virtualized List 도입고려**: 추후 문항리스트 목록이 대량으로 증가할 때 react-window등의 라이브러리를 활용한 화면에 보이는 문항 Card들에 대해 가상화 렌더링 적용을 고려해볼 수 있을 것 같습니다.
