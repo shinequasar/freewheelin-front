@@ -1,4 +1,4 @@
-import type { Problem } from '../../api/apiType'
+import type { Problem } from '../../types/apiType'
 import SimilarQuestionCard from '../common/SimilarQuestionCard'
 
 function SimilarQuestionList({ similarProblems }: { similarProblems: Problem[] }) {

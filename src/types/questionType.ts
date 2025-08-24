@@ -1,4 +1,4 @@
-import type { Problem } from '../api/apiType'
+import type { Problem } from './apiType'
 
 export type Difficulty = 'easy' | 'easyMedium' | 'medium' | 'mediumHard' | 'hard'
 export interface CardProps {

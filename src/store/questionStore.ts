@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import type { Problem } from '../api/apiType'
+import type { Problem } from '../types/apiType'
 
 interface QuestionStore {
   activeQuestionId: number | null

@@ -1,4 +1,4 @@
-import type { Problem } from '../api/apiType'
+import type { Problem } from '../types/apiType'
 
 export const getDifficultyCounts = (problems: Problem[]) => {
   const counts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }

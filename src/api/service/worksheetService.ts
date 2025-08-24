@@ -1,4 +1,4 @@
-import type { GetProblemsResponse } from '../apiType'
+import type { GetProblemsResponse } from '../../types/apiType'
 import apiInstance from '../common/apiInstance'
 
 //문제리스트 조회 API

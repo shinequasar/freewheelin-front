@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import { useQuestionStore } from '../store/questionStore'
-import type { Problem } from '../api/apiType'
+import type { Problem } from '../types/apiType'
 
 const mockProblem1: Problem = {
   id: 1,

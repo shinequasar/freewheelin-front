@@ -1,4 +1,4 @@
-import type { Problem } from '../../api/apiType'
+import type { Problem } from '../../types/apiType'
 import { getDifficultyCounts } from '../../util/convertToDifficulty'
 import QuestionCard from '../common/QuestionCard'
 
