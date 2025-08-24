@@ -1,18 +1,10 @@
 import type { Problem } from '../../api/apiType'
-import { convertLevelToDifficulty } from '../../util/convertLevelToDifficulty'
+import { getDifficultyCounts } from '../../util/convertToDifficulty'
 import QuestionCard from '../common/QuestionCard'
 
 const QuestionList = ({ problems }: { problems: Problem[] }) => {
-  const getDifficultyCounts = () => {
-    const counts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }
-    problems.forEach((problem) => {
-      counts[problem.level as keyof typeof counts]++
-    })
-    return counts
-  }
-
   const difficultyLabels = ['하', '중하', '중', '상', '최상']
-  const difficultyCounts = getDifficultyCounts()
+  const difficultyCounts = getDifficultyCounts(problems)
   const hasProblems = problems.length > 0
 
   const renderEmptyList = () => (
@@ -30,16 +22,7 @@ const QuestionList = ({ problems }: { problems: Problem[] }) => {
   const renderProblemList = () => (
     <div className="space-y-[16px]">
       {problems.map((problem, index) => (
-        <QuestionCard
-          key={problem.id}
-          number={index + 1}
-          title={problem.title}
-          questionCode={problem.id}
-          imageUrl={problem.problemImageUrl}
-          difficulty={convertLevelToDifficulty(problem.level)}
-          percentage={problem.answerRate}
-          type={problem.type === 1 ? '객관식' : '주관식'}
-        />
+        <QuestionCard key={problem.id} problem={problem} number={index + 1} />
       ))}
     </div>
   )

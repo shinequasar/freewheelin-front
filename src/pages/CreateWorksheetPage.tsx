@@ -1,25 +1,31 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { getProblems, getSimilarProblems } from '../api/service/worksheetService'
-import type { Problem } from '../api/apiType'
 import QuestionList from '../components/worksheet/QuestionList'
 import SimilarQuestionList from '../components/worksheet/SimilarQuestionList'
 import { useQuestionStore } from '../store/questionStore'
 
 const CreateWorksheetPage = () => {
-  const [problems, setProblems] = useState<Problem[]>([])
-  const [similarProblems, setSimilarProblems] = useState<Problem[]>([])
+  const {
+    worksheetProblems,
+    similarProblems,
+    setWorksheetProblems,
+    setSimilarProblems,
+    activeQuestionId,
+  } = useQuestionStore()
 
   useEffect(() => {
     getProblems().then((res) => {
-      setProblems(res.data)
+      setWorksheetProblems(res.data)
     })
-  }, [])
-
-  const activeQuestionId = useQuestionStore((state) => state.activeQuestionId)
+  }, [setWorksheetProblems])
 
   useEffect(() => {
     if (activeQuestionId && activeQuestionId !== -1) {
-      getSimilarProblems(activeQuestionId)
+      const excludedProblemIds = worksheetProblems
+        .filter((problem) => problem.id !== activeQuestionId)
+        .map((problem) => problem.id)
+
+      getSimilarProblems(activeQuestionId, excludedProblemIds)
         .then((res) => {
           setSimilarProblems(res.data)
         })
@@ -29,12 +35,12 @@ const CreateWorksheetPage = () => {
     } else {
       setSimilarProblems([])
     }
-  }, [activeQuestionId])
+  }, [activeQuestionId, setSimilarProblems]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="flex h-screen justify-center p-8">
       <SimilarQuestionList similarProblems={similarProblems} />
-      <QuestionList problems={problems} />
+      <QuestionList problems={worksheetProblems} />
     </div>
   )
 }
