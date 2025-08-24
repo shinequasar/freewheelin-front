@@ -22,7 +22,7 @@ const QuestionList = ({ problems }: { problems: Problem[] }) => {
   const renderProblemList = () => (
     <div className="space-y-[16px]">
       {problems.map((problem, index) => (
-        <QuestionCard key={problem.id} problem={problem} number={index + 1} />
+        <QuestionCard key={`${problem.id}-${index}`} problem={problem} number={index + 1} />
       ))}
     </div>
   )
