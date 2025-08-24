@@ -1,11 +1,6 @@
 import { useQuestionStore } from '../../store/questionStore'
-import type { Problem } from '../../api/apiType'
+import type { SimilarQuestionCardProps } from '../../types/questionType'
 import { difficultyColor, difficultyText } from '../../util/convertToDifficulty'
-
-interface SimilarQuestionCardProps {
-  problem: Problem
-  number: number
-}
 
 const SimilarQuestionCard = ({ problem, number }: SimilarQuestionCardProps) => {
   const { activeQuestionId, addProblem, replaceProblem } = useQuestionStore()
