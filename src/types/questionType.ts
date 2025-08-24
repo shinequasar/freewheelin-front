@@ -5,7 +5,7 @@ export interface CardProps {
   difficulty: 'easy' | 'easyMedium' | 'medium' | 'mediumHard' | 'hard'
   percentage: number
   type: string
-  questionCode?: number
+  questionCode: number
 }
 
 export type Difficulty = 'easy' | 'easyMedium' | 'medium' | 'mediumHard' | 'hard'

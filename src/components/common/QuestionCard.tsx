@@ -1,32 +1,23 @@
 import { useQuestionStore } from '../../store/questionStore'
-import type { CardProps } from '../../types/questionType'
+import type { Problem } from '../../api/apiType'
+import { difficultyColor, difficultyText } from '../../util/convertToDifficulty'
 
-const QuestionCard = ({
-  number,
-  title,
-  imageUrl,
-  difficulty,
-  percentage,
-  type,
-  questionCode,
-}: CardProps) => {
-  const difficultyText = {
-    easy: '하',
-    easyMedium: '중하',
-    medium: '중',
-    mediumHard: '상',
-    hard: '최상',
+interface QuestionCardProps {
+  problem: Problem
+  number: number
+}
+
+const QuestionCard = ({ problem, number }: QuestionCardProps) => {
+  const { activeQuestionId, setActiveQuestionId, deleteProblem } = useQuestionStore()
+  const isActive = activeQuestionId === problem.id
+
+  const handleSimilarQuestionClick = () => {
+    setActiveQuestionId(problem.id)
   }
 
-  const difficultyColor = {
-    easy: 'text-difficulty-easy',
-    easyMedium: 'text-difficulty-easyMedium',
-    medium: 'text-difficulty-medium',
-    mediumHard: 'text-difficulty-mediumHard',
-    hard: 'text-difficulty-hard',
+  const handleDeleteClick = () => {
+    deleteProblem(problem.id)
   }
-  const { setActiveQuestionId, activeQuestionId } = useQuestionStore()
-  const isActive = activeQuestionId === questionCode
 
   return (
     <div className={`${isActive ? 'rounded-[16px] border-[3px] border-focus' : ''}`}>
@@ -44,10 +35,10 @@ const QuestionCard = ({
           <div data-area="title" className="flex-1">
             <h3 className="text-[14px] font-[400] leading-[21px] tracking-[-0.2%] text-textColor-title">
               <span className="desktop:hidden">
-                {title.length > 18 ? `${title.slice(0, 18)}...` : title}
+                {problem.title.length > 18 ? `${problem.title.slice(0, 18)}...` : problem.title}
               </span>
               <span className="hidden desktop:block">
-                {title.length > 42 ? `${title.slice(0, 42)}...` : title}
+                {problem.title.length > 42 ? `${problem.title.slice(0, 42)}...` : problem.title}
               </span>
             </h3>
           </div>
@@ -59,10 +50,7 @@ const QuestionCard = ({
             className={`flex items-center gap-1 text-[12px] hover:text-focus ${
               isActive ? 'text-focus' : 'text-textColor-label'
             }`}
-            onClick={() => {
-              console.log('clicked', questionCode)
-              setActiveQuestionId(questionCode!)
-            }}
+            onClick={handleSimilarQuestionClick}
           >
             <img
               src={isActive ? '/icons/add-circle-active-icon.png' : '/icons/add-circle-icon.png'}
@@ -74,6 +62,7 @@ const QuestionCard = ({
           <button
             data-area="btn-delete"
             className="flex items-center gap-1 text-[12px] text-textColor-label hover:text-delete"
+            onClick={handleDeleteClick}
           >
             <img src="/icons/delete-icon.png" alt="delete" className="h-[16px] w-[16px]" />
             삭제
@@ -91,25 +80,29 @@ const QuestionCard = ({
         >
           <span
             data-area="label-difficulty"
-            className={`${difficultyColor[difficulty]} w-[40px] rounded-[4px] bg-cardColor-label px-2 py-1 text-center text-[12px] font-[400] leading-[18px]`}
+            className={`${difficultyColor[problem.level]} w-[40px] rounded-[4px] bg-cardColor-label px-2 py-1 text-center text-[12px] font-[400] leading-[18px]`}
           >
-            {difficultyText[difficulty]}
+            {difficultyText[problem.level]}
           </span>
           <span
             data-area="label-percentage"
             className="w-[40px] rounded-[4px] bg-cardColor-label text-center text-[12px] font-[400] leading-[18px] text-textColor-percentage"
           >
-            {percentage}%
+            {problem.answerRate}%
           </span>
           <span
             data-area="label-type"
             className="w-[40px] rounded-[4px] bg-cardColor-label text-center text-[12px] font-[400] leading-[18px] text-textColor-label"
           >
-            {type}
+            {problem.type === 1 ? '객관식' : '주관식'}
           </span>
         </div>
         <div data-area="placeholder" className="max-w-[70%] pb-[24px]">
-          <img src={imageUrl} alt="problem" className="h-full w-full object-contain" />
+          <img
+            src={problem.problemImageUrl}
+            alt="problem"
+            className="h-full w-full object-contain"
+          />
         </div>
       </div>
     </div>
