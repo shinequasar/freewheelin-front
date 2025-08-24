@@ -14,6 +14,9 @@ interface QuestionStore {
   addProblem: (problem: Problem, activeId: number) => void
   replaceProblem: (similarProblem: Problem, activeId: number) => void
   deleteProblem: (problemId: number) => void
+
+  isReplacedProblem: (problemId: number) => boolean
+  clearReplacedProblems: () => void
 }
 
 export const useQuestionStore = create<QuestionStore>((set, get) => ({
@@ -97,5 +100,14 @@ export const useQuestionStore = create<QuestionStore>((set, get) => ({
       activeQuestionId: newActiveId,
       similarProblems: newActiveId === null ? [] : get().similarProblems,
     })
+  },
+
+  isReplacedProblem: (problemId: number) => {
+    const { replacedProblems } = get()
+    return replacedProblems.has(problemId)
+  },
+
+  clearReplacedProblems: () => {
+    set({ replacedProblems: new Set() })
   },
 }))

@@ -8,10 +8,12 @@ interface QuestionCardProps {
 }
 
 const QuestionCard = ({ problem, number }: QuestionCardProps) => {
-  const { activeQuestionId, setActiveQuestionId, deleteProblem } = useQuestionStore()
+  const { activeQuestionId, setActiveQuestionId, deleteProblem, clearReplacedProblems } =
+    useQuestionStore()
   const isActive = activeQuestionId === problem.id
 
   const handleSimilarQuestionClick = () => {
+    clearReplacedProblems()
     setActiveQuestionId(problem.id)
   }
 

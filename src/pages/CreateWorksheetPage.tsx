@@ -11,6 +11,7 @@ const CreateWorksheetPage = () => {
     setWorksheetProblems,
     setSimilarProblems,
     activeQuestionId,
+    isReplacedProblem,
   } = useQuestionStore()
 
   useEffect(() => {
@@ -21,6 +22,8 @@ const CreateWorksheetPage = () => {
 
   useEffect(() => {
     if (activeQuestionId && activeQuestionId !== -1) {
+      if (isReplacedProblem(activeQuestionId)) return
+
       const excludedProblemIds = worksheetProblems
         .filter((problem) => problem.id !== activeQuestionId)
         .map((problem) => problem.id)
@@ -35,7 +38,7 @@ const CreateWorksheetPage = () => {
     } else {
       setSimilarProblems([])
     }
-  }, [activeQuestionId, setSimilarProblems]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [activeQuestionId, setSimilarProblems, isReplacedProblem]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="flex h-screen justify-center p-8">
