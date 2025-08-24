@@ -39,11 +39,11 @@ const SimilarQuestionCard = ({
           </span>
           <div data-area="title" className="flex-1">
             <h3 className="text-[14px] font-[400] leading-[21px] tracking-[-0.2%] text-textColor-title">
-              <span className="tablet:hidden">
-                {title.length > 25 ? `${title.slice(0, 25)}...` : title}
+              <span className="desktop:hidden">
+                {title.length > 22 ? `${title.slice(0, 22)}...` : title}
               </span>
-              <span className="hidden tablet:block">
-                {title.length > 24 ? `${title.slice(0, 24)}...` : title}
+              <span className="hidden desktop:block">
+                {title.length > 25 ? `${title.slice(0, 25)}...` : title}
               </span>
             </h3>
           </div>
