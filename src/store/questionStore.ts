@@ -17,21 +17,18 @@ interface QuestionStore {
 
   isReplacedProblem: (problemId: number) => boolean
   clearReplacedProblems: () => void
+
+  // 테스트코드용 리셋 함수
+  resetStore: () => void
 }
 
 export const useQuestionStore = create<QuestionStore>((set, get) => ({
-  activeQuestionId: -1,
+  activeQuestionId: null,
   worksheetProblems: [],
   similarProblems: [],
   replacedProblems: new Set(),
 
   setActiveQuestionId: (id: number) => {
-    console.log('setActiveQuestionId 호출:', {
-      이전_activeQuestionId: get().activeQuestionId,
-      새로운_id: id,
-      worksheetProblemsIds: get().worksheetProblems.map((p) => p.id),
-    })
-
     set((state) => ({
       activeQuestionId: state.activeQuestionId === id ? null : id,
     }))
@@ -48,7 +45,7 @@ export const useQuestionStore = create<QuestionStore>((set, get) => ({
   addProblem: (problem: Problem, activeId: number) => {
     const { worksheetProblems, similarProblems, replacedProblems, activeQuestionId } = get()
 
-    const targetId = activeQuestionId !== -1 ? activeQuestionId : activeId
+    const targetId = activeQuestionId !== null ? activeQuestionId : activeId
     const activeIndex = worksheetProblems.findIndex((p) => p.id === targetId)
 
     if (activeIndex === -1) return
@@ -70,12 +67,12 @@ export const useQuestionStore = create<QuestionStore>((set, get) => ({
   replaceProblem: (similarProblem: Problem, activeId: number) => {
     const { worksheetProblems, similarProblems, replacedProblems } = get()
     const activeIndex = worksheetProblems.findIndex((p) => p.id === activeId)
-
     if (activeIndex === -1) return
-
-    const similarIndex = similarProblems.findIndex((p) => p.id === similarProblem.id)
     const newProblems = [...worksheetProblems]
     const oldProblem = newProblems[activeIndex]
+    if (!oldProblem) return
+
+    const similarIndex = similarProblems.findIndex((p) => p.id === similarProblem.id)
     newProblems[activeIndex] = similarProblem
 
     const newSimilarProblems = [...similarProblems]
@@ -119,5 +116,15 @@ export const useQuestionStore = create<QuestionStore>((set, get) => ({
 
   clearReplacedProblems: () => {
     set({ replacedProblems: new Set() })
+  },
+
+  // 테스트코드용 리셋 함수
+  resetStore: () => {
+    set({
+      activeQuestionId: null,
+      worksheetProblems: [],
+      similarProblems: [],
+      replacedProblems: new Set(),
+    })
   },
 }))
