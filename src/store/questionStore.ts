@@ -26,6 +26,12 @@ export const useQuestionStore = create<QuestionStore>((set, get) => ({
   replacedProblems: new Set(),
 
   setActiveQuestionId: (id: number) => {
+    console.log('setActiveQuestionId 호출:', {
+      이전_activeQuestionId: get().activeQuestionId,
+      새로운_id: id,
+      worksheetProblemsIds: get().worksheetProblems.map((p) => p.id),
+    })
+
     set((state) => ({
       activeQuestionId: state.activeQuestionId === id ? null : id,
     }))
@@ -86,8 +92,12 @@ export const useQuestionStore = create<QuestionStore>((set, get) => ({
       worksheetProblems: newProblems,
       similarProblems: newSimilarProblems,
       replacedProblems: newReplacedProblems,
-      activeQuestionId: similarProblem.id,
     })
+
+    const newActiveIndex = newProblems.findIndex((p) => p.id === similarProblem.id)
+    if (newActiveIndex !== -1) {
+      set({ activeQuestionId: similarProblem.id })
+    }
   },
 
   deleteProblem: (problemId: number) => {
