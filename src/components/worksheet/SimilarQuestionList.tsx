@@ -16,7 +16,11 @@ function SimilarQuestionList({ similarProblems }: { similarProblems: Problem[] }
         <div className="h-full max-h-[calc(100vh-64px)] w-full space-y-0 overflow-y-auto scrollbar-hide">
           <h1 className="mb-4 text-[16px] font-[700] text-textColor-title">유사 문항</h1>
           {similarProblems.map((problem, index) => (
-            <SimilarQuestionCard key={problem.id} problem={problem} number={index + 1} />
+            <SimilarQuestionCard
+              key={`${problem.id}-${index}`}
+              problem={problem}
+              number={index + 1}
+            />
           ))}
         </div>
       )}

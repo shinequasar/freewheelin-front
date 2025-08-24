@@ -1,20 +1,22 @@
+import { memo, useCallback } from 'react'
 import { useQuestionStore } from '../../store/questionStore'
 import type { QuestionCardProps } from '../../types/questionType'
 import { difficultyColor, difficultyText } from '../../util/convertToDifficulty'
 
-const QuestionCard = ({ problem, number }: QuestionCardProps) => {
+const QuestionCard = memo(({ problem, number }: QuestionCardProps) => {
   const { activeQuestionId, setActiveQuestionId, deleteProblem, clearReplacedProblems } =
     useQuestionStore()
+
   const isActive = activeQuestionId === problem.id
 
-  const handleSimilarQuestionClick = () => {
+  const handleSimilarQuestionClick = useCallback(() => {
     clearReplacedProblems()
     setActiveQuestionId(problem.id)
-  }
+  }, [clearReplacedProblems, setActiveQuestionId, problem.id])
 
-  const handleDeleteClick = () => {
+  const handleDeleteClick = useCallback(() => {
     deleteProblem(problem.id)
-  }
+  }, [deleteProblem, problem.id])
 
   return (
     <div className={`${isActive ? 'rounded-[16px] border-[3px] border-focus' : ''}`}>
@@ -104,6 +106,6 @@ const QuestionCard = ({ problem, number }: QuestionCardProps) => {
       </div>
     </div>
   )
-}
+})
 
 export default QuestionCard
