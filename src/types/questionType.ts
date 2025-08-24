@@ -1,3 +1,6 @@
+import type { Problem } from '../api/apiType'
+
+export type Difficulty = 'easy' | 'easyMedium' | 'medium' | 'mediumHard' | 'hard'
 export interface CardProps {
   number: number
   title: string
@@ -8,4 +11,12 @@ export interface CardProps {
   questionCode: number
 }
 
-export type Difficulty = 'easy' | 'easyMedium' | 'medium' | 'mediumHard' | 'hard'
+export interface SimilarQuestionCardProps {
+  problem: Problem
+  number: number
+}
+
+export interface QuestionCardProps {
+  problem: Problem
+  number: number
+}
